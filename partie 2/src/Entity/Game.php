@@ -1,10 +1,11 @@
 <?php
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
 * On déclare la classe comme entity : 
-* @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\GameRepository")
 *
 * On définit le nom de sa table :
 * @ORM\Table(name="games")
@@ -20,14 +21,15 @@ class Game
     private $id;
 
     /**
-    * @ORM\Column(type="string", length=50, nullable=false)
+    * @ORM\Column(type="string", length=50, nullable=true)
     */
-    private $name;
+    private  ?string $name ="";
 
     /**
-    * @ORM\Column(type="string", length=200, nullable=false)
+    * @ORM\Column(type="string", length=200, nullable=true)
     */
-    private $image;
+    private ?string $image ="";
+
 
     public function getId(): int {
         return $this->id;
@@ -39,11 +41,24 @@ class Game
         return $this->image;
     }
 
-    public function setName(string $name): void {
+
+    /**
+     * @param string $name
+     * @return Game
+     */
+    public function setName(?string $name): Game {
         $this->name = $name;
+        return $this;
     }
-    public function setEmail(string $image): void {
+
+    /**
+     * @param string $image
+     * @return Game
+     */
+    public function setImage(?string $image): Game {
         $this->image = $image;
+        return $this;
+
     }
     
 }

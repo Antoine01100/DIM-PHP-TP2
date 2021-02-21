@@ -1,10 +1,12 @@
 <?php
+namespace App\Entity;
+use Doctrine\ORM\Mapping\OneToOne;
 
+use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
-
 /**
 * On déclare la classe comme entity : 
-* @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
 *
 * On définit le nom de sa table :
 * @ORM\Table(name="players")
@@ -23,14 +25,19 @@ class Player
     private $id;
 
     /**
-    * @ORM\Column(type="string", length=50, nullable=false)
+    * @ORM\Column(type="string", length=50, nullable=true)
     */
     private $username;
 
     /**
-    * @ORM\Column(type="string", length=50, nullable=false)
+    * @ORM\Column(type="string", length=50, nullable=true)
     */
     private $email;
+
+      /**
+     * @OneToOne(targetEntity="Game")
+     */
+    private Player $owns;
 
     public function getId(): int {
         return $this->id;
@@ -42,11 +49,19 @@ class Player
         return $this->email;
     }
 
-    public function setName(string $username): void {
+    public function setName(string $username): Player {
         $this->username = $username;
+        return $this;
+
     }
-    public function setEmail(string $email): void {
+    public function setEmail(string $email): Player {
         $this->email = $email;
+        return $this;
+
+    }
+    public function setgame(Game $game)
+    {
+        $this->game = $game;
     }
     
 }

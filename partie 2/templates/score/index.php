@@ -21,16 +21,16 @@
         <?php foreach ($scores as $score): ?>
             <tr class="text-gray-700">
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <?= $score["player"]["username"]; ?>
+                    <?= $score->getPlayer()->getName(); ?>
                 </td>
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <?= $score["game"]["name"]; ?>
+                    <?= $score->getGame()->getName(); ?>
                 </td>
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <?= $score["score"]; ?>
+                    <?= $score->getScore(); ?>
                 </td>
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <a href="/score/delete?id=<?= $score["id"]; ?>"
+                    <a href="/score/delete?id=<?= $score->getId(); ?>"
                        onclick="return confirm('Are you sure you want to delete it?')">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -53,7 +53,7 @@
                                     id="game" name="game" required>
                                 <option disabled selected>game</option>
                                 <?php foreach ($games as $game): ?>
-                                    <option value="<?= $game["id"]; ?>"><?= $game["name"]; ?></option>
+                                    <option value="<?= $game->getId(); ?>"><?= $game->getName(); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                                     id="player" name="player" required>
                                 <option disabled selected>player</option>
                                 <?php foreach ($players as $player): ?>
-                                    <option value="<?= $player["id"]; ?>"><?= $player["username"]; ?></option>
+                                    <option value="<?= $player->getId(); ?>"><?= $player->getName(); ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
