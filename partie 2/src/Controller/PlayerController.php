@@ -33,7 +33,7 @@ class PlayerController extends AbstractController
         if ($request->getMethod() == Request::METHOD_POST) {
             $player
                 ->setEmail($request->get('email'))
-                ->setName($request->get('username'));
+                ->setUsername($request->get('username'));
             $entityManager->persist($player);
             $entityManager->flush();
             return $this->redirectTo("/player");
@@ -42,9 +42,11 @@ class PlayerController extends AbstractController
     }
 
 
-    public function show($id): Response
+    public function show($id,EntityManagerInterface $entityManager): Response
     {
-        $player = FakeData::players(1)[0];
+        //$player = FakeData::players(1)[0];
+        $player = $entityManager->getRepository(Player::class)
+            ->find($id);
         return $this->render("player/show", ["player" => $player, "availableGames" => FakeData::games()]);
     }
 
@@ -61,7 +63,7 @@ class PlayerController extends AbstractController
          */
         $player
             ->setEmail($request->get('email'))
-            ->setName($request->get('username'));
+            ->setUsername($request->get('username'));
         $entityManager->persist($player);
         $entityManager->flush();
         return $this->redirectTo("/player");
@@ -83,7 +85,7 @@ class PlayerController extends AbstractController
 
     }
 
-    public function addgame($id, Request $request,EntityManagerInterface $entityManager): Response
+    public function addGame($id,Request $request,EntityManagerInterface $entityManager): Response
     {
         $player = $entityManager->getRepository(Player::class)
             ->find($id);

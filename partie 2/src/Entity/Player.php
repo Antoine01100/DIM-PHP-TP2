@@ -1,67 +1,85 @@
 <?php
+
 namespace App\Entity;
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping\OneToOne;
 
-use App\Repository\ProductRepository;
-use Doctrine\ORM\Mapping as ORM;
 /**
-* On déclare la classe comme entity : 
  * @ORM\Entity(repositoryClass="App\Repository\PlayerRepository")
-*
-* On définit le nom de sa table :
-* @ORM\Table(name="players")
-*
-*/
+ * @ORM\Table(name="players")
+ */
 class Player
 {
     /**
-     * // Le champ sera une clé primaire
      * @ORM\Id()
-     * // Le champ sera de type int
      * @ORM\Column(type="integer")
-     * // Le champ sera une valeur auto-générée (autoincrement)
      * @ORM\GeneratedValue()
      */
-    private $id;
+    private int $id;
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $username = " ";
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $email = " ";
 
     /**
-    * @ORM\Column(type="string", length=50, nullable=true)
-    */
-    private $username;
-
-    /**
-    * @ORM\Column(type="string", length=50, nullable=true)
-    */
-    private $email;
-
-      /**
      * @OneToOne(targetEntity="Game")
      */
     private Player $owns;
 
+    /**
+     * @return int
+     */
     public function getId(): int {
         return $this->id;
     }
-    public function getName(): string {
+    /**
+     * @return string
+     */
+    public function getUserName(): ?string {
         return $this->username;
     }
-    public function getemail(): string {
+    /**
+     * @return string
+     */
+    public function getEmail(): ?string {
         return $this->email;
     }
 
-    public function setName(string $username): Player {
-        $this->username = $username;
-        return $this;
-
-    }
-    public function setEmail(string $email): Player {
+    /**
+     * @param string $email
+     * @return Player
+     */
+    public function setEmail(?string $email): Player
+    {
         $this->email = $email;
         return $this;
-
     }
+    /**
+     * @param string $email
+     * @return Player
+     */
+    public function setUsername(?string $username): Player
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @param Game $game
+
+     */
     public function setgame(Game $game)
     {
         $this->game = $game;
     }
-    
+
+
+
+
+
 }

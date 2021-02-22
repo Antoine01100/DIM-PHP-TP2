@@ -13,7 +13,7 @@
                 </div>
                 <div class=" flex flex-col">
                     <span class="text-gray-600 dark:text-white text-lg font-medium">
-        <?= $player->getName(); ?>
+        <?= $player->getUsername(); ?>
                     </span>
                     <span class="text-gray-400 text-xs">
                         <?= $player->getEmail(); ?>
