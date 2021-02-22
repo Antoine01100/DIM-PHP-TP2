@@ -8,6 +8,9 @@ use App\Entity\Player;
 use App\Entity\Score;
 use App\FakeData;
 
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +19,9 @@ use Symfony\Component\HttpFoundation\Response;
 class ScoreController extends AbstractController
 {
 
-
+    /**
+    * @Route("/score",name="score")
+    */ 
     public function index(Request $request,EntityManagerInterface $entityManager): Response
     {
         $scores = $entityManager
@@ -35,6 +40,9 @@ class ScoreController extends AbstractController
             "games" => $games, "players" => $players]);
     }
 
+    /**
+    * @Route("/score/add",name="addScore")
+    */ 
     public function add(Request $request,EntityManagerInterface $entityManager): Response
     {
         $score= new Score();
@@ -59,6 +67,10 @@ class ScoreController extends AbstractController
 
         }
     }
+
+    /**
+    * @Route("/score/delete",name="deleteScore")
+    */ 
     public function delete($id,EntityManagerInterface $entityManager): Response
     {
         /**

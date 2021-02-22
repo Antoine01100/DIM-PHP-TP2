@@ -6,6 +6,8 @@ use App\Entity\Game;
 use App\FakeData;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 class GameController extends AbstractController
 {
 
+    /**
+    * @Route("/game",name="game")
+    */ 
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         /**
@@ -26,6 +31,9 @@ class GameController extends AbstractController
         return $this->render("game/index.html.twig", ["games" => $games]);
     }
 
+    /** 
+    * @Route("/game/add",name="addGame")
+    */ 
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         // $game = FakeData::games(1)[0];
@@ -41,7 +49,9 @@ class GameController extends AbstractController
         return $this->render("game/form.html.twig", ["game" => $game]);
     }
 
-
+    /** 
+    * @Route("/game/show",name="showGame")
+    */ 
     public function show($id,EntityManagerInterface $entityManager): Response
     {
         // $game = FakeData::games(1)[0];
@@ -50,7 +60,9 @@ class GameController extends AbstractController
         return $this->render("game/show.html.twig", ["game" => $game]);
     }
 
-
+    /** 
+    * @Route("/game/edit",name="editGame")
+    */ 
     public function edit($id,  Request $request,EntityManagerInterface $entityManager): Response
     {
         //$game = FakeData::games(1)[0];
@@ -68,6 +80,9 @@ class GameController extends AbstractController
         return $this->render("game/form.html.twig", ["game" => $game]);
     }
 
+    /** 
+    * @Route("/game/delete",name="deleteGame")
+    */ 
     public function delete($id, EntityManagerInterface $entityManager): Response
     {
         $entiManag = $entityManager->getRepository(Game::class);

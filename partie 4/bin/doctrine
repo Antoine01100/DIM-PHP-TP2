@@ -9,3 +9,4 @@ $kernel = new \App\Kernel();
 $helperSet = ConsoleRunner::createHelperSet($kernel->getEntityManager());
 
 ConsoleRunner::run($helperSet, []);
+

@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\FakeData;
 use App\Entity\Player;
 
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,7 +15,9 @@ use Doctrine\ORM\EntityManagerInterface;
 class PlayerController extends AbstractController
 {
 
-
+    /**
+    * @Route("/player",name="player")
+    */   
     public function index(Request $request,EntityManagerInterface $entityManager): Response
     {
         /**
@@ -26,6 +31,9 @@ class PlayerController extends AbstractController
 
     }
 
+    /**
+    * @Route("/player/add",name="addPlayer")
+    */  
     public function add(Request $request,EntityManagerInterface $entityManager): Response
     {
         //$player = FakeData::players(1)[0];
@@ -41,7 +49,9 @@ class PlayerController extends AbstractController
         return $this->render("player/form.html.twig", ["player" => $player]);
     }
 
-
+    /**
+    * @Route("/player/show",name="showPlayer")
+    */  
     public function show($id,EntityManagerInterface $entityManager): Response
     {
         //$player = FakeData::players(1)[0];
@@ -51,6 +61,9 @@ class PlayerController extends AbstractController
     }
 
 
+    /**
+    * @Route("/player/edit",name="editPlayer")
+    */  
     public function edit($id, Request $request,EntityManagerInterface $entityManager): Response
     {
         //$player = FakeData::players(1)[0];
@@ -73,6 +86,9 @@ class PlayerController extends AbstractController
 
     }
 
+    /**
+    * @Route("/player/delete",name="deletePlayer")
+    */  
     public function delete($id,EntityManagerInterface $entityManager): Response
     {
         /**
@@ -85,6 +101,9 @@ class PlayerController extends AbstractController
 
     }
 
+    /**
+    * @Route("/player/gameadd",name="addGamePlayer")
+    */  
     public function addGame($id,Request $request,EntityManagerInterface $entityManager): Response
     {
         $player = $entityManager->getRepository(Player::class)
