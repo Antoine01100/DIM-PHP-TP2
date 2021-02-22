@@ -1,3 +1,5 @@
+{% extends "layout.html.twig" %}
+{% block body %}
 <div class="grid grid-cols-3 gap-4">
 
     <table class="col-span-2 table p-4 bg-white shadow rounded-lg w-full ">
@@ -18,25 +20,26 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($scores as $score): ?>
+            {% for score in scores %}
             <tr class="text-gray-700">
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <?= $score->getPlayer()->getUserName(); ?>
+                    {{ score.player.username }}
                 </td>
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <?= $score->getGame()->getName(); ?>
+                    {{ score.game.name }}
                 </td>
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <?= $score->getScore(); ?>
+                    {{ score.score }}
                 </td>
                 <td class="border-b-2 p-4 dark:border-dark-5">
-                    <a href="/score/delete?id=<?= $score->getId(); ?>"
+                    <a href="/score/delete?id={{ score.id }}"
                        onclick="return confirm('Are you sure you want to delete it?')">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>
             </tr>
-        <?php endforeach; ?>
+        {% endfor %}
+
         </tbody>
     </table>
     <div>
@@ -52,9 +55,9 @@
                             <select class="block w-full text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                                     id="game" name="game" required>
                                 <option disabled selected>game</option>
-                                <?php foreach ($games as $game): ?>
-                                    <option value="<?= $game->getId(); ?>"><?= $game->getName(); ?></option>
-                                <?php endforeach; ?>
+                                {% for game in games %}
+                                    <option value="{{ game.id }}">{{ game.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -64,9 +67,9 @@
                             <select class="block w-full text-gray-700 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500"
                                     id="player" name="player" required>
                                 <option disabled selected>player</option>
-                                <?php foreach ($players as $player): ?>
-                                    <option value="<?= $player->getId(); ?>"><?= $player->getUserName(); ?></option>
-                                <?php endforeach; ?>
+                                {% for player in players %}
+                                    <option value="{{ player.id }}">{{ player.username }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -88,3 +91,4 @@
         </form>
     </div>
 </div>
+{% endblock %}
